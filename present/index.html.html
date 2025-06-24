@@ -1,0 +1,324 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Для моей самой любимой Полечки</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #ff9ad5 0%, #ff79c6 35%, #d18bff 50%, #8bb4ff 65%, #66a3ff 100%);
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .photo-gallery {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 30px auto;
+            gap: 20px;
+        }
+        
+        .side-photo {
+            width: 0;
+            height: 400px;
+            overflow: hidden;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: all 0.5s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .side-photo img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            opacity: 0;
+            transition: opacity 0.3s 0.2s;
+        }
+        
+        .side-photo.active {
+            width: 300px;
+            padding: 10px;
+        }
+        
+        .side-photo.active img {
+            opacity: 1;
+        }
+        
+        .photo-button {
+            width: 80px;
+            height: 400px;
+            background: linear-gradient(135deg, #ff79c6, #ff9ad5);
+            border: none;
+            border-radius: 40px;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+        }
+        
+        .photo-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+        
+        .main-photo {
+            width: 400px;
+            height: 400px;
+            border: 20px solid #fff;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            transition: transform 0.5s;
+        }
+        
+        .main-photo:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+        
+        .main-photo img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Остальные стили (комплименты, сердечки и т.д.) */
+        .compliment {
+            background-color: rgba(255,255,255,0.85);
+            border-radius: 50px;
+            padding: 15px 30px;
+            margin: 20px;
+            display: inline-block;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+            font-size: 20px;
+            font-weight: bold;
+            color: #d23669;
+            transform: rotate(-5deg);
+            animation: float 4s ease-in-out infinite;
+            transition: all 0.3s;
+        }
+        
+        .compliment:hover {
+            transform: scale(1.1) rotate(0deg) !important;
+            z-index: 10;
+        }
+        
+        .compliment:nth-child(2n) {
+            transform: rotate(3deg);
+            background-color: rgba(255,245,245,0.9);
+            color: #5f27cd;
+        }
+        
+        h1 {
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+            font-size: 3.5em;
+            margin-bottom: 40px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(-5deg); }
+            50% { transform: translateY(-15px) rotate(-5deg); }
+            100% { transform: translateY(0px) rotate(-5deg); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            color: rgba(255,105,180,0.7);
+            animation: falling 12s linear infinite;
+        }
+        
+        @keyframes falling {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .love-letter {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: rgba(255,255,255,0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: left;
+            line-height: 1.8;
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="hearts" id="hearts"></div>
+    
+    <div class="container">
+        <h1>💖!Моя самая самая лучшая девочка!💖</h1>
+        
+        <div class="photo-gallery">
+            <div class="side-photo" id="leftPhoto">
+                <img src="photo1.jpg" alt="Дополнительное фото 1">
+            </div>
+            
+            <button class="photo-button" id="leftButton">*ТЫК*</button>
+            
+            <div class="main-photo">
+                <img src="Полюшенька моя.jpg" alt="Самый прекрасный человек">
+            </div>
+            
+            <button class="photo-button" id="rightButton">*ТЫК*</button>
+            
+            <div class="side-photo" id="rightPhoto">
+                <img src="photo2.jpg" alt="Дополнительное фото 2">
+            </div>
+        </div>
+        
+      
+               <div class="love-letter">
+            <p>Котёночек мой,</p>
+            <p>Просто ещё раз хочется сказать тебе, как сильно я тебя люблю.. Как сильно я счастлив, что ты просто есть в моей жизни.. Моё яркое и тёплое солнышко!</p>
+            <p>Ты вся моя жизнь, пися) Надеюсь эта карточка поднимет тебе настрроение) Как ты, поднимаешь его мне своей улыбкой!)</p>
+            <p>Я ЛЮБЛЮ ТЕБЯ ПОЛЮШЕНЬКААА!!</p>
+        </div>
+        
+        <div class="compliments-container">
+            <div class="compliment">🌟Ты моя самая яркая и красивая звёздочка!🌟</div>
+            <div class="compliment">☀️Греешь нежнее чем солнышко!☀️</div>
+            <div class="compliment">🐱Мой котёночек с розовыми ушками и носиком🐱</div>
+            <div class="compliment">💟Моя будущая девушка и жена!💟</div>
+            <div class="compliment">🌸Мой самый необыкновенный цветочек🌸</div>
+            <div class="compliment">💫Моё самое заветное желание!💫</div>
+            <div class="compliment">💌Моя первая и последняя мысль дня!💌</div>
+            <div class="compliment">🦄Моё восьмое, и единственное настоящее чудо света🦄</div>
+            <div class="compliment">💎Моя великолепнейшая принцесса💎</div>
+            <div class="compliment">💕Моё счастье и краски в жизни💕</div>
+            <div class="compliment">🌍Самая наилучшая во всём белом свете🌍</div>
+            <div class="compliment">👫Я хочу провести каждое мгновение жизни лишь с тобой..👫</div>
+            <div class="compliment">🤯Теряю голову каждый раз при виде тебя🤯</div>
+            <div class="compliment">💉Твой запах - сильнее любого наркотика в мире💉</div>
+            <div class="compliment">🧲Тянет к тебе ежесекундно🧲</div>
+            <div class="compliment">🏡Только там где ты - мой настоящий дом.🏡</div>
+            <div class="compliment">🥺Так люблю твои глазки.. Моя нежность..🥺</div>
+            <div class="compliment">🎶Очищаешь от плохих мыслей лучше самой успокаивающей музыки!🎶</div>
+            <div class="compliment">🌠Хочу засыпать с тобой.. Прижимая к себе🌠</div>
+            <div class="compliment">🎁Не понимаю.. Как я заслужил такой прекрасный подарок..🎁</div>
+            <div class="compliment">💘Моя Писечка-Полисечка!!!💘</div>
+            <div class="compliment">💜Кстати, если бы не ты, я бы вообще не хотел жить..💜</div>
+            <div class="compliment">💝Моё сердце всегда будет только твоим!💝</div>
+            <div class="compliment">🐭Хочу скорее тебя затискать..🐭</div>
+            <div class="compliment">💏МЫ!!! ХОЧУ ТЕБЯ ЦЕЛОВАААААТЬ!!!💏</div>
+            <div class="compliment">📢КРИЧУ, как сильно люблю тебя..📢</div>
+            <div class="compliment">♾️Мы связаны! и будем с тобой вечность! Даже в других жизнях♾️</div>
+            <div class="compliment">🫀Пока ты есть - моё сердце бьётся🫀</div>
+            <div class="compliment">🔮Во всех астрологических штуках ищу сначала тебя..!🔮</div>
+            <div class="compliment">🐬Я твой самый верный и преданный фанат!🐬</div>
+            <div class="compliment">🎀Я подарю тебе весь весь мир к товим ножкам🎀</div>
+            <div class="compliment">💐В тебе есть абсолютно всё самое прекрасное💐</div>
+            <div class="compliment">😇Мой чудесный любимый ангелочек😇</div>
+            <div class="compliment">😍Восхищаюсь всем, что ты делаешь..😍</div>
+            <div class="compliment">🌊Твой голос, как звуки моря..🌊</div>
+            <div class="compliment">☁️С тобой мне так же легко, как облачкам в небе☁️</div>
+            <div class="compliment">💗Я ТЕБЯ ЛЮБЛЮ💗</div>
+        </div>
+    </div>
+    
+    <script>
+        // Создаем падающие сердечки
+        function createHearts() {
+            const heartsContainer = document.getElementById('hearts');
+            for (let i = 0; i < 100; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = ['❤', '🧡', '💛', '💚', '💙', '💜', '🤎', '🖤', '🤍', '💕', '💞', '💓', '💗', '💖', '💘', '💝'][Math.floor(Math.random()*16)];
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDuration = (Math.random() * 8 + 8) + 's';
+                heart.style.animationDelay = Math.random() * 10 + 's';
+                heart.style.fontSize = (Math.random() * 30 + 20) + 'px';
+                heart.style.opacity = Math.random() * 0.5 + 0.3;
+                heartsContainer.appendChild(heart);
+            }
+        }
+        
+        // Управление боковыми фото
+        function setupGallery() {
+            const leftButton = document.getElementById('leftButton');
+            const rightButton = document.getElementById('rightButton');
+            const leftPhoto = document.getElementById('leftPhoto');
+            const rightPhoto = document.getElementById('rightPhoto');
+            
+            leftButton.addEventListener('click', function() {
+                leftPhoto.classList.toggle('active');
+                // Закрываем правое фото если открыто
+                if (rightPhoto.classList.contains('active')) {
+                    rightPhoto.classList.remove('active');
+                }
+            });
+            
+            rightButton.addEventListener('click', function() {
+                rightPhoto.classList.toggle('active');
+                // Закрываем левое фото если открыто
+                if (leftPhoto.classList.contains('active')) {
+                    leftPhoto.classList.remove('active');
+                }
+            });
+        }
+        
+        createHearts();
+        setupGallery();
+    </script>
+</body>
+</html>
